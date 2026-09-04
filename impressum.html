@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Impressum — Nexus Bit UG (haftungsbeschränkt) in Gründung">
+  <meta name="robots" content="noindex, follow">
+  <title>Impressum — Nexus Bit</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+
+  <style>
+/* =====================================================
+   DESIGN TOKENS (shared with index.html)
+   ===================================================== */
+:root {
+  --c-bg:          #ffffff;
+  --c-bg-subtle:   #F8FAFC;
+  --c-bg-muted:    #F1F5F9;
+  --c-navy-950:    #030712;
+  --c-navy-900:    #0A0F1E;
+  --c-navy-800:    #0F2549;
+  --c-navy-700:    #1A3461;
+  --c-blue:        #1B4FD8;
+  --c-blue-50:     #EFF6FF;
+  --c-blue-100:    #DBEAFE;
+  --c-blue-400:    #60A5FA;
+  --c-text:        #0F172A;
+  --c-text-muted:  #475569;
+  --c-text-subtle: #94A3B8;
+  --c-border:      #E2E8F0;
+
+  --r-sm:   6px;
+  --r:      12px;
+  --r-lg:   16px;
+  --r-full: 9999px;
+
+  --shadow-xs: 0 1px 2px rgba(15,23,42,0.05);
+  --shadow-sm: 0 1px 3px rgba(15,23,42,0.08), 0 1px 2px rgba(15,23,42,0.04);
+
+  --t: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+}
+
+/* =====================================================
+   RESET
+   ===================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: var(--c-text);
+  background: var(--c-bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+img, svg { display: block; max-width: 100%; }
+a       { color: inherit; text-decoration: none; }
+ul      { list-style: none; }
+button  { cursor: pointer; border: none; background: none; font: inherit; }
+
+/* =====================================================
+   ACCESSIBILITY
+   ===================================================== */
+.skip-link {
+  position: absolute;
+  top: -9999px;
+  left: 1.5rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--c-navy-800);
+  color: #fff;
+  border-radius: 0 0 var(--r-sm) var(--r-sm);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+.skip-link:focus { top: 0; }
+:focus-visible {
+  outline: 2px solid var(--c-blue);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+/* =====================================================
+   LAYOUT
+   ===================================================== */
+.container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--c-border);
+  transition: border-color var(--t), background var(--t);
+}
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  gap: 1.5rem;
+}
+.nav__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-shrink: 0;
+}
+.nav__logo-mark { width: 30px; height: 30px; flex-shrink: 0; }
+.nav__logo-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--c-text);
+}
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  flex: 1;
+  justify-content: center;
+}
+.nav__link {
+  padding: 0.4375rem 0.875rem;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--c-text-muted);
+  border-radius: var(--r-sm);
+  transition: color var(--t), background var(--t);
+  white-space: nowrap;
+}
+.nav__link:hover { color: var(--c-text); background: var(--c-bg-subtle); }
+.nav__actions { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border-radius: var(--r-sm);
+  transition: all var(--t);
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+.btn--primary {
+  background: var(--c-navy-800);
+  color: #ffffff;
+  box-shadow: 0 1px 2px rgba(15,23,42,0.15), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.btn--primary:hover { background: var(--c-navy-900); }
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0.5rem;
+  border-radius: var(--r-sm);
+  transition: background var(--t);
+}
+.nav__hamburger:hover { background: var(--c-bg-subtle); }
+.nav__hamburger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--c-text);
+  border-radius: 2px;
+  transition: transform var(--t), opacity var(--t);
+}
+.nav__mobile {
+  display: none;
+  flex-direction: column;
+  padding: 1rem 1.5rem 1.5rem;
+  border-top: 1px solid var(--c-border);
+  gap: 0.125rem;
+}
+.nav__mobile.is-open { display: flex; }
+.nav__mobile .nav__link { padding: 0.75rem 1rem; font-size: var(--text-base); }
+.nav__mobile .btn { margin-top: 0.875rem; justify-content: center; }
+
+/* =====================================================
+   PAGE HEADER
+   ===================================================== */
+.page-header {
+  padding: 7rem 0 3.5rem;
+  background: var(--c-bg-subtle);
+  border-bottom: 1px solid var(--c-border);
+}
+.page-header__breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--text-xs);
+  color: var(--c-text-subtle);
+  margin-bottom: 1.25rem;
+  font-weight: 500;
+}
+.page-header__breadcrumb a {
+  color: var(--c-text-subtle);
+  transition: color var(--t);
+}
+.page-header__breadcrumb a:hover { color: var(--c-text-muted); }
+.page-header__breadcrumb-sep { color: var(--c-border); }
+.page-header__title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--c-text);
+  margin-bottom: 0.625rem;
+}
+.page-header__sub {
+  font-size: var(--text-sm);
+  color: var(--c-text-muted);
+}
+
+/* =====================================================
+   LEGAL CONTENT
+   ===================================================== */
+.legal-body {
+  padding: 4rem 0 6rem;
+}
+.legal-content {
+  max-width: 720px;
+}
+
+.legal-section {
+  margin-bottom: 2.75rem;
+  padding-bottom: 2.75rem;
+  border-bottom: 1px solid var(--c-border);
+}
+.legal-section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.legal-section__title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  margin-bottom: 1.25rem;
+}
+
+.legal-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.legal-block + .legal-block { margin-top: 1.25rem; }
+
+.legal-block__label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--c-text-subtle);
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.legal-block__value {
+  font-size: var(--text-base);
+  color: var(--c-text);
+  line-height: 1.65;
+}
+.legal-block__value address {
+  font-style: normal;
+  line-height: 1.75;
+}
+
+.legal-para {
+  font-size: var(--text-base);
+  color: var(--c-text-muted);
+  line-height: 1.75;
+  margin-bottom: 0.875rem;
+}
+.legal-para:last-child { margin-bottom: 0; }
+
+.legal-link {
+  color: var(--c-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  word-break: break-all;
+  transition: color var(--t);
+}
+.legal-link:hover { color: var(--c-navy-700); }
+
+.legal-dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.375rem 1.5rem;
+  font-size: var(--text-base);
+  line-height: 1.65;
+}
+.legal-dl dt {
+  color: var(--c-text-subtle);
+  font-size: var(--text-sm);
+  padding-top: 0.05em;
+  white-space: nowrap;
+}
+.legal-dl dd { color: var(--c-text); }
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+.footer {
+  background: var(--c-navy-950);
+  padding: 4.5rem 0 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.75fr 1fr 1fr 1.375fr;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+}
+.footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 0.875rem;
+}
+.footer__logo-mark { width: 28px; height: 28px; }
+.footer__logo-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+.footer__tagline {
+  font-size: var(--text-sm);
+  color: #3D5270;
+  line-height: 1.65;
+  max-width: 270px;
+}
+.footer__col-head {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #334155;
+  margin-bottom: 1.25rem;
+}
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.footer__link {
+  font-size: var(--text-sm);
+  color: #3D5270;
+  transition: color var(--t);
+  line-height: 1.45;
+}
+.footer__link:hover { color: #64748B; }
+.footer__contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  margin-bottom: 0.75rem;
+}
+.footer__contact-row svg {
+  width: 15px; height: 15px;
+  color: #334155;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.footer__contact-row span,
+.footer__contact-row a {
+  font-size: var(--text-sm);
+  color: #3D5270;
+  line-height: 1.45;
+  transition: color var(--t);
+}
+.footer__contact-row a:hover { color: #64748B; }
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.footer__copy { font-size: var(--text-xs); color: #1E293B; }
+.footer__legal {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.footer__legal-link {
+  font-size: var(--text-xs);
+  color: #1E293B;
+  transition: color var(--t);
+}
+.footer__legal-link:hover { color: #334155; }
+.footer__legal-link.is-current { color: #334155; }
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+@media (max-width: 1024px) {
+  .footer__grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+}
+@media (max-width: 768px) {
+  .nav__links, .nav__actions { display: none; }
+  .nav__hamburger { display: flex; }
+  .footer__grid { grid-template-columns: 1fr; gap: 2rem; }
+  .footer__tagline { max-width: 100%; }
+  .legal-dl { grid-template-columns: 1fr; gap: 0.125rem; }
+  .legal-dl dt { color: var(--c-text-subtle); font-size: var(--text-xs); }
+}
+@media (max-width: 480px) {
+  .page-header { padding: 6rem 0 2.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+  </style>
+</head>
+
+<body>
+  <a href="#main" class="skip-link">Zum Hauptinhalt springen</a>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <header>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <div class="container">
+        <div class="nav__inner">
+
+          <a href="index.html" class="nav__logo" aria-label="Nexus Bit — Startseite">
+            <svg class="nav__logo-mark" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+              <rect width="30" height="30" rx="7" fill="#0F2549"/>
+              <circle cx="15" cy="15" r="2.5" fill="#60A5FA"/>
+              <circle cx="8"  cy="9"  r="1.75" fill="#60A5FA" opacity="0.55"/>
+              <circle cx="22" cy="9"  r="1.75" fill="#60A5FA" opacity="0.55"/>
+              <circle cx="8"  cy="21" r="1.75" fill="#60A5FA" opacity="0.55"/>
+              <circle cx="22" cy="21" r="1.75" fill="#60A5FA" opacity="0.55"/>
+              <line x1="15" y1="15" x2="8"  y2="9"  stroke="#60A5FA" stroke-width="1" opacity="0.4"/>
+              <line x1="15" y1="15" x2="22" y2="9"  stroke="#60A5FA" stroke-width="1" opacity="0.4"/>
+              <line x1="15" y1="15" x2="8"  y2="21" stroke="#60A5FA" stroke-width="1" opacity="0.4"/>
+              <line x1="15" y1="15" x2="22" y2="21" stroke="#60A5FA" stroke-width="1" opacity="0.4"/>
+            </svg>
+            <span class="nav__logo-name">Nexus Bit</span>
+          </a>
+
+          <ul class="nav__links" role="list">
+            <li><a href="index.html#services"  class="nav__link">Services</a></li>
+            <li><a href="index.html#approach"  class="nav__link">Approach</a></li>
+            <li><a href="index.html#about"     class="nav__link">About</a></li>
+            <li><a href="index.html#contact"   class="nav__link">Contact</a></li>
+          </ul>
+
+          <div class="nav__actions">
+            <a href="index.html#contact" class="btn btn--primary">Get in touch</a>
+          </div>
+
+          <button
+            class="nav__hamburger"
+            id="hamburger"
+            aria-label="Menü öffnen"
+            aria-expanded="false"
+            aria-controls="mobile-nav"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+
+        <nav class="nav__mobile" id="mobile-nav" aria-hidden="true" aria-label="Mobile Navigation">
+          <a href="index.html#services"  class="nav__link">Services</a>
+          <a href="index.html#approach"  class="nav__link">Approach</a>
+          <a href="index.html#about"     class="nav__link">About</a>
+          <a href="index.html#contact"   class="nav__link">Contact</a>
+          <a href="index.html#contact"   class="btn btn--primary">Get in touch</a>
+        </nav>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================================================
+         PAGE HEADER
+    ============================================================ -->
+    <div class="page-header">
+      <div class="container">
+        <div class="page-header__breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Nexus Bit</a>
+          <span class="page-header__breadcrumb-sep" aria-hidden="true">/</span>
+          <span aria-current="page">Impressum</span>
+        </div>
+        <h1 class="page-header__title">Impressum</h1>
+        <p class="page-header__sub">Angaben gemäß § 5 TMG</p>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         LEGAL CONTENT
+    ============================================================ -->
+    <div class="legal-body">
+      <div class="container">
+        <div class="legal-content">
+
+          <!-- Anbieter -->
+          <section class="legal-section" aria-labelledby="sec-anbieter">
+            <h2 class="legal-section__title" id="sec-anbieter">Anbieter</h2>
+            <div class="legal-block">
+              <address class="legal-block__value">
+                Nexus Bit UG (haftungsbeschränkt) in Gründung<br>
+                Mühlenstr. 8a<br>
+                14167 Berlin
+              </address>
+            </div>
+            <div class="legal-block">
+              <dl class="legal-dl">
+                <dt>Handelsregister</dt>
+                <dd>HRB 278655</dd>
+                <dt>Registergericht</dt>
+                <dd>Amtsgericht Berlin-Charlottenburg</dd>
+                <dt>USt-IdNr. gemäß § 27a UStG</dt>
+                <dd>DE456962007</dd>
+              </dl>
+            </div>
+          </section>
+
+          <!-- Vertreten durch -->
+          <section class="legal-section" aria-labelledby="sec-vertreter">
+            <h2 class="legal-section__title" id="sec-vertreter">Vertreten durch</h2>
+            <div class="legal-block">
+              <div class="legal-block__label">Geschäftsführer</div>
+              <div class="legal-block__value">Stephan Gimm</div>
+            </div>
+          </section>
+
+          <!-- Kontakt -->
+          <section class="legal-section" aria-labelledby="sec-kontakt">
+            <h2 class="legal-section__title" id="sec-kontakt">Kontakt</h2>
+            <div class="legal-block">
+              <dl class="legal-dl">
+                <dt>Mobil</dt>
+                <dd><a href="tel:+4915562901223" class="legal-link">+49 155 6290 1223</a></dd>
+                <dt>E-Mail</dt>
+                <dd><a href="mailto:info@nexus-bit.de" class="legal-link">info@nexus-bit.de</a></dd>
+              </dl>
+            </div>
+          </section>
+
+          <!-- Verantwortlich für den Inhalt -->
+          <section class="legal-section" aria-labelledby="sec-inhalt">
+            <h2 class="legal-section__title" id="sec-inhalt">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+            <div class="legal-block">
+              <address class="legal-block__value">
+                Stephan Gimm<br>
+                Mühlenstr. 8a<br>
+                14167 Berlin
+              </address>
+            </div>
+          </section>
+
+          <!-- EU-Streitschlichtung -->
+          <section class="legal-section" aria-labelledby="sec-streit-eu">
+            <h2 class="legal-section__title" id="sec-streit-eu">EU-Streitschlichtung</h2>
+            <p class="legal-para">
+              Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+              <a
+                href="https://ec.europa.eu/consumers/odr"
+                class="legal-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >https://ec.europa.eu/consumers/odr</a>.
+            </p>
+            <p class="legal-para">
+              Unsere E-Mail-Adresse finden Sie oben.
+            </p>
+          </section>
+
+          <!-- Verbraucherstreitbeilegung -->
+          <section class="legal-section" aria-labelledby="sec-streit-vb">
+            <h2 class="legal-section__title" id="sec-streit-vb">Verbraucherstreitbeilegung</h2>
+            <p class="legal-para">
+              Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer
+              Verbraucherschlichtungsstelle teilzunehmen.
+            </p>
+          </section>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+
+        <div>
+          <div class="footer__logo">
+            <svg class="footer__logo-mark" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+              <rect width="28" height="28" rx="6.5" fill="#0F2549"/>
+              <circle cx="14" cy="14" r="2.25" fill="#60A5FA"/>
+              <circle cx="7.5"  cy="8.5"  r="1.5" fill="#60A5FA" opacity="0.5"/>
+              <circle cx="20.5" cy="8.5"  r="1.5" fill="#60A5FA" opacity="0.5"/>
+              <circle cx="7.5"  cy="19.5" r="1.5" fill="#60A5FA" opacity="0.5"/>
+              <circle cx="20.5" cy="19.5" r="1.5" fill="#60A5FA" opacity="0.5"/>
+              <line x1="14" y1="14" x2="7.5"  y2="8.5"  stroke="#60A5FA" stroke-width="0.9" opacity="0.35"/>
+              <line x1="14" y1="14" x2="20.5" y2="8.5"  stroke="#60A5FA" stroke-width="0.9" opacity="0.35"/>
+              <line x1="14" y1="14" x2="7.5"  y2="19.5" stroke="#60A5FA" stroke-width="0.9" opacity="0.35"/>
+              <line x1="14" y1="14" x2="20.5" y2="19.5" stroke="#60A5FA" stroke-width="0.9" opacity="0.35"/>
+            </svg>
+            <span class="footer__logo-name">Nexus Bit</span>
+          </div>
+          <p class="footer__tagline">
+            Architecture, AI &amp; Reliable Systems. Helping organizations build systems
+            that remain understandable, governable, and adaptable.
+          </p>
+        </div>
+
+        <div>
+          <div class="footer__col-head">Services</div>
+          <ul class="footer__links" role="list">
+            <li><a href="index.html#services" class="footer__link">AI Governance &amp; Reliability</a></li>
+            <li><a href="index.html#services" class="footer__link">Cloud &amp; Platform Architecture</a></li>
+            <li><a href="index.html#services" class="footer__link">Dynamics 365 &amp; Power Platform</a></li>
+            <li><a href="index.html#services" class="footer__link">Operations &amp; Managed Services</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer__col-head">Company</div>
+          <ul class="footer__links" role="list">
+            <li><a href="index.html#approach" class="footer__link">Our Approach</a></li>
+            <li><a href="index.html#about"    class="footer__link">About</a></li>
+            <li><a href="index.html#contact"  class="footer__link">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer__col-head">Kontakt</div>
+          <div class="footer__contact-row">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="1" y="3" width="14" height="10" rx="1.5"/>
+              <polyline points="1,4 8,9 15,4"/>
+            </svg>
+            <a href="mailto:info@nexus-bit.de" class="footer__link">info@nexus-bit.de</a>
+          </div>
+          <div class="footer__contact-row">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 1.5a5.5 5.5 0 0 1 5.5 5.5C13.5 10.5 8 14.5 8 14.5S2.5 10.5 2.5 7A5.5 5.5 0 0 1 8 1.5z"/>
+              <circle cx="8" cy="7" r="2"/>
+            </svg>
+            <span>Berlin, Deutschland</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 Nexus Bit UG (haftungsbeschränkt) i.G. Alle Rechte vorbehalten.</p>
+        <nav class="footer__legal" aria-label="Rechtliche Links">
+          <a href="agb.html"          class="footer__legal-link">AGB</a>
+          <a href="impressum.html"    class="footer__legal-link is-current" aria-current="page">Impressum</a>
+          <a href="datenschutz.html"  class="footer__legal-link">Datenschutzerklärung</a>
+        </nav>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+  let menuOpen = false;
+
+  function setMenu(open) {
+    menuOpen = open;
+    hamburger.setAttribute('aria-expanded', open);
+    mobileNav.setAttribute('aria-hidden', !open);
+    mobileNav.classList.toggle('is-open', open);
+    const [s1, s2, s3] = hamburger.querySelectorAll('span');
+    if (open) {
+      s1.style.transform = 'translateY(7px) rotate(45deg)';
+      s2.style.opacity   = '0';
+      s3.style.transform = 'translateY(-7px) rotate(-45deg)';
+    } else {
+      s1.style.transform = s3.style.transform = '';
+      s2.style.opacity = '';
+    }
+  }
+
+  hamburger.addEventListener('click', () => setMenu(!menuOpen));
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Legal pages carry <meta name="robots" content="noindex"> in their HTML.
+# They are deliberately crawlable so that directive is read, but will not appear in search results.
+
+Sitemap: https://www.nexus-bit.de/sitemap.xml

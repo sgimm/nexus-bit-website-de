@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nexus Bit — Architecture, AI & Reliable Systems. Helping organizations build systems that remain understandable, governable, and adaptable.">
+  <meta name="theme-color" content="#0A0F1E">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <title>Nexus Bit — Architecture, AI & Reliable Systems</title>
+
+  <!-- Preload Inter from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+
+  <style>
+/* =====================================================
+   DESIGN TOKENS
+   ===================================================== */
+:root {
+  /* Palette */
+  --c-bg:            #ffffff;
+  --c-bg-subtle:     #F8FAFC;
+  --c-bg-muted:      #F1F5F9;
+  --c-navy-950:      #030712;
+  --c-navy-900:      #0A0F1E;
+  --c-navy-800:      #0F2549;
+  --c-navy-700:      #1A3461;
+  --c-blue:          #1B4FD8;
+  --c-blue-hover:    #1640B8;
+  --c-blue-50:       #EFF6FF;
+  --c-blue-100:      #DBEAFE;
+  --c-blue-400:      #60A5FA;
+  --c-text:          #0F172A;
+  --c-text-muted:    #475569;
+  --c-text-subtle:   #94A3B8;
+  --c-border:        #E2E8F0;
+  --c-border-dark:   rgba(255,255,255,0.08);
+
+  /* Spacing rhythm */
+  --section-py:      clamp(5rem, 10vw, 8rem);
+
+  /* Typography scale */
+  --text-xs:         0.75rem;
+  --text-sm:         0.875rem;
+  --text-base:       1rem;
+  --text-lg:         1.125rem;
+  --text-xl:         1.25rem;
+
+  /* Radii */
+  --r-sm:   6px;
+  --r:      12px;
+  --r-lg:   16px;
+  --r-xl:   24px;
+  --r-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(15,23,42,0.05);
+  --shadow-sm: 0 1px 3px rgba(15,23,42,0.08), 0 1px 2px rgba(15,23,42,0.04);
+  --shadow:    0 4px 16px rgba(15,23,42,0.07), 0 2px 4px rgba(15,23,42,0.04);
+  --shadow-lg: 0 20px 48px rgba(15,23,42,0.10), 0 8px 16px rgba(15,23,42,0.06);
+
+  /* Easing */
+  --ease:      cubic-bezier(0.4, 0, 0.2, 1);
+  --t:         200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --t-slow:    400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =====================================================
+   RESET
+   ===================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: var(--c-text);
+  background: var(--c-bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+img, svg  { display: block; max-width: 100%; }
+a         { color: inherit; text-decoration: none; }
+ul        { list-style: none; }
+button    { cursor: pointer; border: none; background: none; font: inherit; }
+h1, h2, h3 { text-wrap: balance; }
+
+/* =====================================================
+   LAYOUT
+   ===================================================== */
+.container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.container--narrow { max-width: 760px; }
+
+/* =====================================================
+   ACCESSIBILITY
+   ===================================================== */
+.skip-link {
+  position: absolute;
+  top: -9999px;
+  left: 1.5rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--c-navy-800);
+  color: #fff;
+  border-radius: 0 0 var(--r-sm) var(--r-sm);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+.skip-link:focus { top: 0; }
+
+:focus-visible {
+  outline: 2px solid var(--c-blue);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--t), background var(--t);
+}
+.nav.is-scrolled {
+  border-bottom-color: var(--c-border);
+  background: rgba(255, 255, 255, 0.96);
+}
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  gap: 1.5rem;
+}
+
+/* Logo */
+.nav__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-shrink: 0;
+}
+.nav__logo-mark { width: 30px; height: 30px; flex-shrink: 0; }
+.nav__logo-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--c-text);
+}
+
+/* Desktop links */
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  flex: 1;
+  justify-content: center;
+}
+.nav__link {
+  padding: 0.4375rem 0.875rem;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--c-text-muted);
+  border-radius: var(--r-sm);
+  transition: color var(--t), background var(--t);
+  white-space: nowrap;
+}
+.nav__link:hover { color: var(--c-text); background: var(--c-bg-subtle); }
+.nav__link.is-active { color: var(--c-text); }
+
+/* CTA */
+.nav__actions { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+
+/* Hamburger */
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0.5rem;
+  border-radius: var(--r-sm);
+  transition: background var(--t);
+}
+.nav__hamburger:hover { background: var(--c-bg-subtle); }
+.nav__hamburger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--c-text);
+  border-radius: 2px;
+  transition: transform var(--t), opacity var(--t);
+}
+
+/* Mobile drawer */
+.nav__mobile {
+  display: none;
+  flex-direction: column;
+  padding: 1rem 1.5rem 1.5rem;
+  border-top: 1px solid var(--c-border);
+  gap: 0.125rem;
+}
+.nav__mobile.is-open { display: flex; }
+.nav__mobile .nav__link { padding: 0.75rem 1rem; font-size: var(--text-base); }
+.nav__mobile .btn { margin-top: 0.875rem; justify-content: center; }
+
+/* =====================================================
+   BUTTONS
+   ===================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border-radius: var(--r-sm);
+  transition: all var(--t);
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+.btn--lg  { padding: 0.875rem 1.75rem; font-size: var(--text-base); border-radius: var(--r); }
+
+.btn--primary {
+  background: var(--c-navy-800);
+  color: #ffffff;
+  box-shadow: 0 1px 2px rgba(15,23,42,0.15), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.btn--primary:hover { background: var(--c-navy-900); }
+
+.btn--ghost {
+  color: var(--c-text-muted);
+  border: 1px solid var(--c-border);
+  background: transparent;
+}
+.btn--ghost:hover {
+  color: var(--c-text);
+  border-color: #CBD5E1;
+  background: var(--c-bg-subtle);
+}
+
+.btn--white {
+  background: #ffffff;
+  color: var(--c-navy-900);
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+.btn--white:hover { background: var(--c-bg-subtle); }
+
+.btn--outline-white {
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.75);
+}
+.btn--outline-white:hover {
+  border-color: rgba(255,255,255,0.32);
+  background: rgba(255,255,255,0.06);
+  color: #ffffff;
+}
+
+/* =====================================================
+   HERO
+   ===================================================== */
+.hero {
+  position: relative;
+  padding: 10rem 0 7.5rem;
+  overflow: hidden;
+  background: #ffffff;
+}
+/* Subtle radial glow from top */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 55% at 50% -5%, rgba(27,79,216,0.075) 0%, transparent 65%);
+  pointer-events: none;
+}
+/* Dot grid */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, #C7D2E0 1px, transparent 1px);
+  background-size: 36px 36px;
+  opacity: 0.45;
+  mask-image: radial-gradient(ellipse 80% 65% at 50% 0%, black 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 0%, black 0%, transparent 75%);
+  pointer-events: none;
+}
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3125rem 0.875rem;
+  background: var(--c-bg-subtle);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-full);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+  margin-bottom: 2rem;
+}
+.hero__eyebrow-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--c-blue);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(27,79,216,0.12);
+}
+
+.hero__title {
+  font-size: clamp(2.625rem, 6.5vw, 5.25rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: var(--c-text);
+  margin-bottom: 1.625rem;
+}
+.hero__title-accent { color: var(--c-navy-700); }
+
+.hero__lead {
+  font-size: clamp(1.0625rem, 1.75vw, 1.1875rem);
+  color: var(--c-text-muted);
+  line-height: 1.7;
+  max-width: 540px;
+  margin: 0 auto 2.75rem;
+  font-weight: 400;
+}
+
+.hero__ctas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.875rem;
+  flex-wrap: wrap;
+}
+
+/* =====================================================
+   SECTION BASE
+   ===================================================== */
+.section { padding: var(--section-py) 0; }
+.section--subtle { background: var(--c-bg-subtle); }
+.section--dark {
+  background: var(--c-navy-900);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+.section--dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% -5%, rgba(27,79,216,0.18) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.section__header { margin-bottom: clamp(2.75rem, 5vw, 4rem); }
+.section__header--center { text-align: center; margin-left: auto; margin-right: auto; max-width: 640px; }
+
+.section__label {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  margin-bottom: 0.875rem;
+}
+.section--dark .section__label { color: var(--c-blue-400); }
+
+.section__title {
+  font-size: clamp(1.875rem, 3.75vw, 2.875rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  color: var(--c-text);
+  margin-bottom: 1rem;
+}
+.section--dark .section__title { color: #ffffff; }
+
+.section__description {
+  font-size: clamp(1rem, 1.4vw, 1.0625rem);
+  color: var(--c-text-muted);
+  line-height: 1.75;
+}
+.section--dark .section__description { color: #64748B; }
+
+/* =====================================================
+   CONVICTION (problem statement)
+   ===================================================== */
+.conviction {
+  border-top: 1px solid var(--c-border);
+  border-bottom: 1px solid var(--c-border);
+}
+.conviction__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4.5rem;
+  align-items: center;
+}
+.conviction__heading {
+  font-size: clamp(1.375rem, 2.5vw, 1.9375rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: var(--c-text);
+  margin-bottom: 1.25rem;
+}
+.conviction__body {
+  font-size: 1.0625rem;
+  color: var(--c-text-muted);
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+.conviction__body:last-child { margin-bottom: 0; }
+
+.conviction__pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.conviction__pillar {
+  padding: 1.375rem 1.5rem;
+  background: #ffffff;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r);
+  box-shadow: var(--shadow-xs);
+  transition: border-color var(--t), box-shadow var(--t);
+}
+.conviction__pillar:hover {
+  border-color: #CBD5E1;
+  box-shadow: var(--shadow-sm);
+}
+.conviction__pillar-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--c-navy-800);
+  margin-bottom: 0.375rem;
+}
+.conviction__pillar-text {
+  font-size: var(--text-xs);
+  color: var(--c-text-muted);
+  line-height: 1.55;
+}
+
+/* =====================================================
+   SERVICES
+   ===================================================== */
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+.service-card {
+  padding: 2.25rem;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--t-slow), box-shadow var(--t-slow), transform var(--t-slow);
+}
+.service-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--c-blue), var(--c-navy-700));
+  opacity: 0;
+  transition: opacity var(--t-slow);
+}
+.service-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+.service-card:hover::after { opacity: 1; }
+
+.service-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px; height: 46px;
+  border-radius: var(--r);
+  background: var(--c-blue-50);
+  border: 1px solid var(--c-blue-100);
+  color: var(--c-blue);
+  margin-bottom: 1.5rem;
+  flex-shrink: 0;
+}
+.service-card__name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--c-text);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+.service-card__desc {
+  font-size: var(--text-sm);
+  color: var(--c-text-muted);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+.service-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1875rem 0.625rem;
+  background: var(--c-bg-muted);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-full);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--c-text-muted);
+  letter-spacing: 0.01em;
+}
+
+/* =====================================================
+   APPROACH (dark)
+   ===================================================== */
+.approach__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+.principle {
+  padding: 2rem;
+  border: 1px solid var(--c-border-dark);
+  border-radius: var(--r-lg);
+  background: rgba(255,255,255,0.03);
+  transition: background var(--t-slow), border-color var(--t-slow);
+}
+.principle:hover {
+  background: rgba(255,255,255,0.055);
+  border-color: rgba(255,255,255,0.13);
+}
+.principle__number {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--c-blue-400);
+  margin-bottom: 1.125rem;
+  font-variant-numeric: tabular-nums;
+}
+.principle__title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  margin-bottom: 0.875rem;
+  line-height: 1.35;
+}
+.principle__body {
+  font-size: var(--text-sm);
+  color: #64748B;
+  line-height: 1.75;
+}
+
+/* =====================================================
+   DIFFERENTIATORS
+   ===================================================== */
+.diff__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.diff-card {
+  padding: 2rem;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--c-border);
+  background: var(--c-bg-subtle);
+  transition: border-color var(--t), box-shadow var(--t);
+}
+.diff-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: var(--shadow);
+}
+.diff-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px; height: 42px;
+  border-radius: var(--r);
+  background: var(--c-navy-800);
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 1.25rem;
+}
+.diff-card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--c-text);
+  margin-bottom: 0.625rem;
+  line-height: 1.35;
+}
+.diff-card__body {
+  font-size: var(--text-sm);
+  color: var(--c-text-muted);
+  line-height: 1.7;
+}
+
+/* =====================================================
+   PROCESS
+   ===================================================== */
+.process__steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  position: relative;
+}
+.process__steps::before {
+  content: '';
+  position: absolute;
+  top: 27px;
+  left: calc(12.5% + 28px);
+  right: calc(12.5% + 28px);
+  height: 1px;
+  background: var(--c-border);
+}
+.process-step { text-align: center; position: relative; }
+.process-step__num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  border: 1px solid var(--c-border);
+  background: var(--c-bg);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--c-navy-800);
+  margin: 0 auto 1.25rem;
+  font-variant-numeric: tabular-nums;
+  position: relative;
+  z-index: 1;
+}
+.process-step__title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--c-text);
+  margin-bottom: 0.5rem;
+}
+.process-step__body {
+  font-size: var(--text-sm);
+  color: var(--c-text-muted);
+  line-height: 1.65;
+}
+
+/* =====================================================
+   CTA SECTION
+   ===================================================== */
+.cta {
+  background: var(--c-navy-900);
+  padding: var(--section-py) 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 65% 55% at 50% -5%, rgba(27,79,216,0.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta__inner { position: relative; z-index: 1; }
+.cta__title {
+  font-size: clamp(2rem, 4vw, 3.125rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: #ffffff;
+  margin-bottom: 1.125rem;
+}
+.cta__body {
+  font-size: clamp(1rem, 1.4vw, 1.0625rem);
+  color: #64748B;
+  max-width: 480px;
+  margin: 0 auto 2.75rem;
+  line-height: 1.7;
+}
+.cta__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.875rem;
+  flex-wrap: wrap;
+}
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+.footer {
+  background: var(--c-navy-950);
+  padding: 4.5rem 0 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.75fr 1fr 1fr 1.375fr;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+}
+.footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 0.875rem;
+}
+.footer__logo-mark { width: 28px; height: 28px; }
+.footer__logo-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+.footer__tagline {
+  font-size: var(--text-sm);
+  color: #3D5270;
+  line-height: 1.65;
+  max-width: 270px;
+}
+.footer__col-head {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #334155;
+  margin-bottom: 1.25rem;
+}
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.footer__link {
+  font-size: var(--text-sm);
+  color: #3D5270;
+  transition: color var(--t);
+  line-height: 1.45;
+}
+.footer__link:hover { color: #64748B; }
+
+.footer__contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  margin-bottom: 0.75rem;
+}
+.footer__contact-row svg {
+  width: 15px; height: 15px;
+  color: #334155;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.footer__contact-row span,
+.footer__contact-row a {
+  font-size: var(--text-sm);
+  color: #3D5270;
+  line-height: 1.45;
+  transition: color var(--t);
+}
+.footer__contact-row a:hover { color: #64748B; }
+
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.footer__copy { font-size: var(--text-xs); color: #1E293B; }
+.footer__legal {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.footer__legal-link {
+  font-size: var(--text-xs);
+  color: #1E293B;
+  transition: color var(--t);
+}
+.footer__legal-link:hover { color: #334155; }
+
+/* =====================================================
+   SCROLL ANIMATIONS
+   ===================================================== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero entrance — staggered CSS animation */
+.hero__eyebrow  { animation: fadeInUp 0.55s var(--ease) both; animation-delay: 0.08s; }
+.hero__title    { animation: fadeInUp 0.6s  var(--ease) both; animation-delay: 0.2s; }
+.hero__lead     { animation: fadeInUp 0.6s  var(--ease) both; animation-delay: 0.34s; }
+.hero__ctas     { animation: fadeInUp 0.6s  var(--ease) both; animation-delay: 0.46s; }
+
+/* Scroll-triggered elements */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+[data-delay="1"] { transition-delay: 0.1s; }
+[data-delay="2"] { transition-delay: 0.18s; }
+[data-delay="3"] { transition-delay: 0.26s; }
+[data-delay="4"] { transition-delay: 0.34s; }
+[data-delay="5"] { transition-delay: 0.42s; }
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+@media (max-width: 1024px) {
+  .conviction__layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .approach__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .process__steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .process__steps::before { display: none; }
+  .footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav__links,
+  .nav__actions { display: none; }
+  .nav__hamburger { display: flex; }
+
+  .hero { padding: 7.5rem 0 5rem; }
+
+  .services__grid     { grid-template-columns: 1fr; }
+  .diff__grid         { grid-template-columns: 1fr; }
+  .approach__grid     { grid-template-columns: 1fr; }
+  .process__steps     { grid-template-columns: 1fr 1fr; }
+  .footer__grid       { grid-template-columns: 1fr; gap: 2rem; }
+  .footer__tagline    { max-width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .hero__ctas       { flex-direction: column; align-items: stretch; }
+  .hero__ctas .btn  { justify-content: center; }
+  .cta__actions     { flex-direction: column; align-items: stretch; }
+  .cta__actions .btn { justify-content: center; }
+  .conviction__pillars { grid-template-columns: 1fr; }
+  .process__steps   { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+  </style>
+</head>
+
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <header>
+    <nav class="nav" id="nav" aria-label="Primary navigation">
+      <div class="container">
+        <div class="nav__inner">
+
+          <!-- Logo -->
+          <a href="/" class="nav__logo" aria-label="Nexus Bit — home">
+            <svg class="nav__logo-mark" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+              <rect width="30" height="30" rx="7" fill="#0F2549"/>
+              <!-- Center hub -->
+              <circle cx="15" cy="15" r="2.5" fill="#60A5FA"/>
+              <!-- Satellite nodes -->
+              <circle cx="8"  cy="9"  r="1.75" fill="#60A5FA" opacity="0.55"/>
+              <circle cx="22" cy="9"  r="1.75" fill="#60A5FA" opacity="0.55"/>
+              <circle cx="8"  cy="21" r="1.75" fill="#60A5FA" opacity="0.55"/>
+              <circle cx="22" cy="21" r="1.75" fill="#60A5FA" opacity="0.55"/>
+              <!-- Connections -->
+              <line x1="15" y1="15" x2="8"  y2="9"  stroke="#60A5FA" stroke-width="1" opacity="0.4"/>
+              <line x1="15" y1="15" x2="22" y2="9"  stroke="#60A5FA" stroke-width="1" opacity="0.4"/>
+              <line x1="15" y1="15" x2="8"  y2="21" stroke="#60A5FA" stroke-width="1" opacity="0.4"/>
+              <line x1="15" y1="15" x2="22" y2="21" stroke="#60A5FA" stroke-width="1" opacity="0.4"/>
+            </svg>
+            <span class="nav__logo-name">Nexus Bit</span>
+          </a>
+
+          <!-- Desktop links -->
+          <ul class="nav__links" role="list">
+            <li><a href="#services"  class="nav__link">Services</a></li>
+            <li><a href="#approach"  class="nav__link">Approach</a></li>
+            <li><a href="#about"     class="nav__link">About</a></li>
+            <li><a href="#contact"   class="nav__link">Contact</a></li>
+          </ul>
+
+          <div class="nav__actions">
+            <a href="#contact" class="btn btn--primary">Get in touch</a>
+          </div>
+
+          <button
+            class="nav__hamburger"
+            id="hamburger"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="mobile-nav"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+
+        <!-- Mobile drawer -->
+        <nav class="nav__mobile" id="mobile-nav" aria-hidden="true" aria-label="Mobile navigation">
+          <a href="#services"  class="nav__link">Services</a>
+          <a href="#approach"  class="nav__link">Approach</a>
+          <a href="#about"     class="nav__link">About</a>
+          <a href="#contact"   class="nav__link">Contact</a>
+          <a href="#contact"   class="btn btn--primary">Get in touch</a>
+        </nav>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================================================
+         HERO
+    ============================================================ -->
+    <section class="hero" aria-labelledby="hero-headline">
+      <div class="container">
+        <div class="hero__inner">
+
+          <div class="hero__eyebrow" role="text">
+            <span class="hero__eyebrow-dot" aria-hidden="true"></span>
+            Architecture · AI · Reliable Systems
+          </div>
+
+          <h1 class="hero__title" id="hero-headline">
+            Architecture, AI &amp;<br>
+            <span class="hero__title-accent">Reliable Systems</span>
+          </h1>
+
+          <p class="hero__lead">
+            Helping organizations build systems that remain understandable,
+            governable, and adaptable — through rigorous architectural thinking
+            and a long-term engineering mindset.
+          </p>
+
+          <div class="hero__ctas">
+            <a href="#services" class="btn btn--primary btn--lg">
+              Our Services
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                <path d="M2 7.5h11M9 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a href="#contact" class="btn btn--ghost btn--lg">Start a conversation</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CONVICTION — the problem we address
+    ============================================================ -->
+    <section class="section conviction section--subtle" aria-labelledby="conviction-heading">
+      <div class="container">
+        <div class="conviction__layout">
+
+          <div data-reveal>
+            <h2 class="conviction__heading" id="conviction-heading">
+              Systems grow complex faster than organizations can adapt.
+            </h2>
+            <p class="conviction__body">
+              Adoption without governance creates drift. Platforms expand without clear ownership.
+              AI tools are deployed before there are frameworks to manage them. The result is
+              technical debt that isn't just financial — it's organizational. Teams lose the
+              ability to reason about their own systems.
+            </p>
+            <p class="conviction__body">
+              We work with organizations that recognize this pattern and want to change it —
+              not by adding more tools, but by bringing architectural discipline to the
+              platforms they already depend on.
+            </p>
+          </div>
+
+          <div class="conviction__pillars" data-reveal data-delay="2">
+            <div class="conviction__pillar">
+              <div class="conviction__pillar-title">Architecture-first</div>
+              <div class="conviction__pillar-text">Every engagement starts with understanding the system before proposing changes.</div>
+            </div>
+            <div class="conviction__pillar">
+              <div class="conviction__pillar-title">Microsoft ecosystem</div>
+              <div class="conviction__pillar-text">Azure, Dynamics 365, Power Platform — we work where your business already runs.</div>
+            </div>
+            <div class="conviction__pillar">
+              <div class="conviction__pillar-title">AI governance built in</div>
+              <div class="conviction__pillar-text">We don't adopt AI without frameworks for owning, testing, and improving it over time.</div>
+            </div>
+            <div class="conviction__pillar">
+              <div class="conviction__pillar-title">Adaptability by design</div>
+              <div class="conviction__pillar-text">We optimize for the system you need next year, not just the problem you have today.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SERVICES
+    ============================================================ -->
+    <section class="section" id="services" aria-labelledby="services-heading">
+      <div class="container">
+
+        <div class="section__header" data-reveal>
+          <span class="section__label">Services</span>
+          <h2 class="section__title" id="services-heading">
+            Four practice areas.<br>One consistent principle.
+          </h2>
+          <p class="section__description">
+            Systems should be understood by the people who depend on them. Every service
+            we offer is shaped by that principle — whether we are designing a cloud platform,
+            governing AI tooling, or sustaining an integration architecture.
+          </p>
+        </div>
+
+        <div class="services__grid">
+
+          <!-- AI Governance -->
+          <div class="service-card" data-reveal>
+            <div class="service-card__icon" aria-hidden="true">
+              <!-- Shield with inner circuit node -->
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 2 3 5.5v5.25C3 15.1 6.5 19.1 11 20.5c4.5-1.4 8-5.4 8-9.75V5.5L11 2z"/>
+                <circle cx="11" cy="11" r="2"/>
+                <path d="M11 7v2M11 13v2M7 11h2M13 11h2"/>
+              </svg>
+            </div>
+            <h3 class="service-card__name">AI Governance &amp; Reliability</h3>
+            <p class="service-card__desc">
+              Bringing engineering discipline to AI adoption. We establish the frameworks
+              your organization needs to treat AI systems with the same rigour as any other
+              production platform — with ownership, versioning, and accountability built in
+              from the start, not retrofitted later.
+            </p>
+            <div class="service-card__tags">
+              <span class="tag">Prompt lifecycle</span>
+              <span class="tag">Versioning</span>
+              <span class="tag">Testing</span>
+              <span class="tag">Ownership models</span>
+              <span class="tag">Copilot Studio</span>
+              <span class="tag">AI standards</span>
+            </div>
+          </div>
+
+          <!-- Cloud Architecture -->
+          <div class="service-card" data-reveal data-delay="2">
+            <div class="service-card__icon" aria-hidden="true">
+              <!-- Cloud with upward flow -->
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 17.5H6a5 5 0 1 1 4.9-6H17a3.5 3.5 0 0 1 0 6z"/>
+                <path d="M11 17.5v-5"/>
+                <path d="M8.5 14.5l2.5-2.5 2.5 2.5"/>
+              </svg>
+            </div>
+            <h3 class="service-card__name">Cloud &amp; Platform Architecture</h3>
+            <p class="service-card__desc">
+              Designing cloud platforms on Azure that scale without accumulating structural
+              debt. We focus on event-driven integration patterns, reliability engineering,
+              and reducing complexity — not just accelerating deployment.
+            </p>
+            <div class="service-card__tags">
+              <span class="tag">Azure</span>
+              <span class="tag">Event-driven systems</span>
+              <span class="tag">Integration architecture</span>
+              <span class="tag">Reliability</span>
+              <span class="tag">Technical debt</span>
+            </div>
+          </div>
+
+          <!-- Dynamics 365 -->
+          <div class="service-card" data-reveal data-delay="3">
+            <div class="service-card__icon" aria-hidden="true">
+              <!-- Four-quadrant grid -->
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2"  y="2"  width="8" height="8" rx="1.5"/>
+                <rect x="12" y="2"  width="8" height="8" rx="1.5"/>
+                <rect x="2"  y="12" width="8" height="8" rx="1.5"/>
+                <rect x="12" y="12" width="8" height="8" rx="1.5"/>
+              </svg>
+            </div>
+            <h3 class="service-card__name">Dynamics 365 &amp; Power Platform</h3>
+            <p class="service-card__desc">
+              Thoughtful implementation of Microsoft business platforms. We prioritize clean
+              solution architecture and sustainable integration patterns — ensuring that what
+              gets built can be understood, extended, and maintained by the teams who inherit it.
+            </p>
+            <div class="service-card__tags">
+              <span class="tag">Solution architecture</span>
+              <span class="tag">Integration</span>
+              <span class="tag">Automation</span>
+              <span class="tag">Custom development</span>
+            </div>
+          </div>
+
+          <!-- Operations -->
+          <div class="service-card" data-reveal data-delay="4">
+            <div class="service-card__icon" aria-hidden="true">
+              <!-- Monitoring waveform -->
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="1 11 5 11 7 4 11 18 14 8 16 14 18 11 21 11"/>
+              </svg>
+            </div>
+            <h3 class="service-card__name">Operations &amp; Managed Services</h3>
+            <p class="service-card__desc">
+              Sustained engineering partnership built around measurable outcomes.
+              We establish monitoring baselines, define service levels, and maintain a
+              focus on continuous improvement — not reactive firefighting when things go wrong.
+            </p>
+            <div class="service-card__tags">
+              <span class="tag">Monitoring</span>
+              <span class="tag">SLAs</span>
+              <span class="tag">Support</span>
+              <span class="tag">Continuous improvement</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         APPROACH — dark section
+    ============================================================ -->
+    <section class="section section--dark" id="approach" aria-labelledby="approach-heading">
+      <div class="container">
+
+        <div class="section__header section__header--center" data-reveal>
+          <span class="section__label">How we think</span>
+          <h2 class="section__title" id="approach-heading">
+            Architecture is not a phase.<br>It is an ongoing discipline.
+          </h2>
+          <p class="section__description">
+            Most systems fail not because they were poorly built, but because they were built
+            for the problem of the moment — not for the organization that will need to
+            change them next year.
+          </p>
+        </div>
+
+        <div class="approach__grid">
+
+          <div class="principle" data-reveal>
+            <div class="principle__number">01</div>
+            <h3 class="principle__title">Clarity before scale</h3>
+            <p class="principle__body">
+              Systems that are hard to understand become impossible to change. We prioritize
+              explicit structure, clear ownership, and documented decisions — not because it
+              looks good, but because it determines what your organization can do in three years.
+            </p>
+          </div>
+
+          <div class="principle" data-reveal data-delay="2">
+            <div class="principle__number">02</div>
+            <h3 class="principle__title">Governance as engineering</h3>
+            <p class="principle__body">
+              AI tools and integration platforms don't become liabilities because of poor
+              technology choices. They become liabilities when no one owns them.
+              We treat governance as a technical discipline — not a management formality.
+            </p>
+          </div>
+
+          <div class="principle" data-reveal data-delay="3">
+            <div class="principle__number">03</div>
+            <h3 class="principle__title">Design for the next change</h3>
+            <p class="principle__body">
+              Before we commit to a pattern or a platform, we ask what happens when
+              requirements shift. That question shapes the architecture, the naming conventions,
+              the integration boundaries, and the documentation we leave behind.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         DIFFERENTIATORS
+    ============================================================ -->
+    <section class="section" id="about" aria-labelledby="diff-heading">
+      <div class="container">
+
+        <div class="section__header section__header--center" data-reveal>
+          <span class="section__label">What makes us different</span>
+          <h2 class="section__title" id="diff-heading">
+            Small team. Architectural depth.<br>Long-term thinking.
+          </h2>
+          <p class="section__description">
+            We are not a generic software agency. We are an architecture and engineering
+            consultancy that operates at the systems level — where decisions compound over time
+            and the cost of ambiguity compounds with them.
+          </p>
+        </div>
+
+        <div class="diff__grid">
+
+          <div class="diff-card" data-reveal>
+            <div class="diff-card__icon" aria-hidden="true">
+              <!-- Layers icon -->
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="10 2 19 7 10 12 1 7"/>
+                <polyline points="1 12 10 17 19 12"/>
+                <polyline points="1 9.5 10 14.5 19 9.5"/>
+              </svg>
+            </div>
+            <h3 class="diff-card__title">We work at the architecture level</h3>
+            <p class="diff-card__body">
+              We are not here to build features faster. We are here to ensure the platform
+              those features run on is one your team can understand, extend, and maintain
+              years from now — without calling us every time something changes.
+            </p>
+          </div>
+
+          <div class="diff-card" data-reveal data-delay="2">
+            <div class="diff-card__icon" aria-hidden="true">
+              <!-- People icon -->
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 17v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 2 15.5V17"/>
+                <circle cx="7.5" cy="7" r="3.5"/>
+                <path d="M18 17v-1.5a3.5 3.5 0 0 0-2.625-3.38"/>
+                <path d="M13.5 3.62a3.5 3.5 0 0 1 0 6.76"/>
+              </svg>
+            </div>
+            <h3 class="diff-card__title">We leave teams more capable</h3>
+            <p class="diff-card__body">
+              Our goal is to improve your team's ability to reason about their own systems —
+              not to create a dependency on external expertise. Engagements end with
+              transferred knowledge and clear documentation, not vendor lock-in.
+            </p>
+          </div>
+
+          <div class="diff-card" data-reveal data-delay="3">
+            <div class="diff-card__icon" aria-hidden="true">
+              <!-- Forward-clock / time horizon icon -->
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="10" cy="10" r="8"/>
+                <polyline points="10 5.5 10 10 13.5 12"/>
+                <path d="M14 3.5l2 2-2 2"/>
+              </svg>
+            </div>
+            <h3 class="diff-card__title">We think about the next change</h3>
+            <p class="diff-card__body">
+              Before we recommend a pattern, a platform, or a process, we consider what
+              happens when requirements shift. That question is not hypothetical —
+              it shapes every architectural decision we make.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PROCESS
+    ============================================================ -->
+    <section class="section section--subtle" aria-labelledby="process-heading">
+      <div class="container">
+
+        <div class="section__header section__header--center" data-reveal>
+          <span class="section__label">How we engage</span>
+          <h2 class="section__title" id="process-heading">
+            Structured. Collaborative. Clear at every stage.
+          </h2>
+        </div>
+
+        <div class="process__steps">
+
+          <div class="process-step" data-reveal>
+            <div class="process-step__num" aria-hidden="true">01</div>
+            <h3 class="process-step__title">Discovery</h3>
+            <p class="process-step__body">
+              We spend time understanding your current systems, constraints, and goals
+              before recommending anything. Context before proposals.
+            </p>
+          </div>
+
+          <div class="process-step" data-reveal data-delay="2">
+            <div class="process-step__num" aria-hidden="true">02</div>
+            <h3 class="process-step__title">Architecture Design</h3>
+            <p class="process-step__body">
+              We produce a clear architectural view with documented decisions,
+              trade-offs, and a roadmap your team can follow independently.
+            </p>
+          </div>
+
+          <div class="process-step" data-reveal data-delay="3">
+            <div class="process-step__num" aria-hidden="true">03</div>
+            <h3 class="process-step__title">Implementation</h3>
+            <p class="process-step__body">
+              We build alongside your team — ensuring patterns are understood,
+              not just delivered. Knowledge transfer and implementation happen together.
+            </p>
+          </div>
+
+          <div class="process-step" data-reveal data-delay="4">
+            <div class="process-step__num" aria-hidden="true">04</div>
+            <h3 class="process-step__title">Sustain &amp; Improve</h3>
+            <p class="process-step__body">
+              For ongoing engagements, we maintain operational standards and drive
+              continuous improvement against clearly defined baselines.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CTA
+    ============================================================ -->
+    <section class="cta" id="contact" aria-labelledby="cta-heading">
+      <div class="container">
+        <div class="cta__inner">
+          <div data-reveal>
+            <h2 class="cta__title" id="cta-heading">
+              Ready to build systems<br>that last?
+            </h2>
+            <p class="cta__body">
+              We work with a small number of organizations at a time. If your
+              challenges are architectural and your standards are high, we should talk.
+            </p>
+            <div class="cta__actions">
+              <a href="mailto:info@nexus-bit.de" class="btn btn--white btn--lg">
+                Start a conversation
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                  <path d="M2 7.5h11M9 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a href="mailto:info@nexus-bit.de" class="btn btn--outline-white btn--lg">info@nexus-bit.de</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+
+        <!-- Brand -->
+        <div>
+          <div class="footer__logo">
+            <svg class="footer__logo-mark" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+              <rect width="28" height="28" rx="6.5" fill="#0F2549"/>
+              <circle cx="14" cy="14" r="2.25" fill="#60A5FA"/>
+              <circle cx="7.5"  cy="8.5"  r="1.5" fill="#60A5FA" opacity="0.5"/>
+              <circle cx="20.5" cy="8.5"  r="1.5" fill="#60A5FA" opacity="0.5"/>
+              <circle cx="7.5"  cy="19.5" r="1.5" fill="#60A5FA" opacity="0.5"/>
+              <circle cx="20.5" cy="19.5" r="1.5" fill="#60A5FA" opacity="0.5"/>
+              <line x1="14" y1="14" x2="7.5"  y2="8.5"  stroke="#60A5FA" stroke-width="0.9" opacity="0.35"/>
+              <line x1="14" y1="14" x2="20.5" y2="8.5"  stroke="#60A5FA" stroke-width="0.9" opacity="0.35"/>
+              <line x1="14" y1="14" x2="7.5"  y2="19.5" stroke="#60A5FA" stroke-width="0.9" opacity="0.35"/>
+              <line x1="14" y1="14" x2="20.5" y2="19.5" stroke="#60A5FA" stroke-width="0.9" opacity="0.35"/>
+            </svg>
+            <span class="footer__logo-name">Nexus Bit</span>
+          </div>
+          <p class="footer__tagline">
+            Architecture, AI &amp; Reliable Systems. Helping organizations build systems
+            that remain understandable, governable, and adaptable.
+          </p>
+        </div>
+
+        <!-- Services -->
+        <div>
+          <div class="footer__col-head">Services</div>
+          <ul class="footer__links" role="list">
+            <li><a href="#services" class="footer__link">AI Governance &amp; Reliability</a></li>
+            <li><a href="#services" class="footer__link">Cloud &amp; Platform Architecture</a></li>
+            <li><a href="#services" class="footer__link">Dynamics 365 &amp; Power Platform</a></li>
+            <li><a href="#services" class="footer__link">Operations &amp; Managed Services</a></li>
+          </ul>
+        </div>
+
+        <!-- Company -->
+        <div>
+          <div class="footer__col-head">Company</div>
+          <ul class="footer__links" role="list">
+            <li><a href="#approach" class="footer__link">Our Approach</a></li>
+            <li><a href="#about"    class="footer__link">About</a></li>
+            <li><a href="#contact"  class="footer__link">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <div class="footer__col-head">Contact</div>
+          <div class="footer__contact-row">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="1" y="3" width="14" height="10" rx="1.5"/>
+              <polyline points="1,4 8,9 15,4"/>
+            </svg>
+            <a href="mailto:info@nexus-bit.de" class="footer__link">info@nexus-bit.de</a>
+          </div>
+          <div class="footer__contact-row">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 1.5a5.5 5.5 0 0 1 5.5 5.5C13.5 10.5 8 14.5 8 14.5S2.5 10.5 2.5 7A5.5 5.5 0 0 1 8 1.5z"/>
+              <circle cx="8" cy="7" r="2"/>
+            </svg>
+            <span>Berlin, Deutschland</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 Nexus Bit UG (haftungsbeschränkt) i.G. All rights reserved.</p>
+        <nav class="footer__legal" aria-label="Legal links">
+          <a href="agb.html"         class="footer__legal-link">AGB</a>
+          <a href="impressum.html"   class="footer__legal-link">Impressum</a>
+          <a href="datenschutz.html" class="footer__legal-link">Datenschutzerklärung</a>
+        </nav>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+  /* =====================================================
+     NAVIGATION — scroll state + mobile toggle
+  ===================================================== */
+  const nav       = document.getElementById('nav');
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+  let   menuOpen  = false;
+
+  // Scroll-aware border
+  const sentinel = document.querySelector('.hero');
+  const scrollObserver = new IntersectionObserver(
+    ([entry]) => nav.classList.toggle('is-scrolled', !entry.isIntersecting),
+    { threshold: 0, rootMargin: '-1px 0px 0px 0px' }
+  );
+  scrollObserver.observe(sentinel);
+
+  // Mobile toggle
+  function setMenu(open) {
+    menuOpen = open;
+    hamburger.setAttribute('aria-expanded', open);
+    mobileNav.setAttribute('aria-hidden', !open);
+    mobileNav.classList.toggle('is-open', open);
+
+    const [s1, s2, s3] = hamburger.querySelectorAll('span');
+    if (open) {
+      s1.style.transform = 'translateY(7px) rotate(45deg)';
+      s2.style.opacity   = '0';
+      s3.style.transform = 'translateY(-7px) rotate(-45deg)';
+    } else {
+      s1.style.transform = s3.style.transform = '';
+      s2.style.opacity = '';
+    }
+  }
+
+  hamburger.addEventListener('click', () => setMenu(!menuOpen));
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+  /* =====================================================
+     SCROLL REVEAL — Intersection Observer
+  ===================================================== */
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: '0px 0px -48px 0px' }
+  );
+
+  document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
+
+  /* =====================================================
+     ACTIVE NAV LINK — highlight current section
+  ===================================================== */
+  const sections  = document.querySelectorAll('section[id]');
+  const navLinks  = document.querySelectorAll('.nav__link');
+
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navLinks.forEach(link => {
+            const active = link.getAttribute('href') === `#${id}`;
+            link.classList.toggle('is-active', active);
+          });
+        }
+      });
+    },
+    { threshold: 0.45 }
+  );
+
+  sections.forEach(s => sectionObserver.observe(s));
+  </script>
+</body>
+</html>

@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Allgemeine Geschäftsbedingungen — Nexus Bit UG (haftungsbeschränkt)">
+  <meta name="robots" content="noindex, follow">
+  <title>AGB — Nexus Bit</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+
+  <style>
+/* =====================================================
+   DESIGN TOKENS
+   ===================================================== */
+:root {
+  --c-bg:          #ffffff;
+  --c-bg-subtle:   #F8FAFC;
+  --c-bg-muted:    #F1F5F9;
+  --c-navy-950:    #030712;
+  --c-navy-900:    #0A0F1E;
+  --c-navy-800:    #0F2549;
+  --c-navy-700:    #1A3461;
+  --c-blue:        #1B4FD8;
+  --c-blue-50:     #EFF6FF;
+  --c-blue-100:    #DBEAFE;
+  --c-blue-400:    #60A5FA;
+  --c-text:        #0F172A;
+  --c-text-muted:  #475569;
+  --c-text-subtle: #94A3B8;
+  --c-border:      #E2E8F0;
+
+  --r-sm:   6px;
+  --r:      12px;
+  --r-full: 9999px;
+
+  --shadow-xs: 0 1px 2px rgba(15,23,42,0.05);
+  --shadow-sm: 0 1px 3px rgba(15,23,42,0.08), 0 1px 2px rgba(15,23,42,0.04);
+
+  --t: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+}
+
+/* =====================================================
+   RESET
+   ===================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: var(--c-text);
+  background: var(--c-bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+img, svg { display: block; max-width: 100%; }
+a       { color: inherit; text-decoration: none; }
+ul      { list-style: none; }
+button  { cursor: pointer; border: none; background: none; font: inherit; }
+
+/* =====================================================
+   ACCESSIBILITY
+   ===================================================== */
+.skip-link {
+  position: absolute;
+  top: -9999px;
+  left: 1.5rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--c-navy-800);
+  color: #fff;
+  border-radius: 0 0 var(--r-sm) var(--r-sm);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+.skip-link:focus { top: 0; }
+:focus-visible {
+  outline: 2px solid var(--c-blue);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+/* =====================================================
+   LAYOUT
+   ===================================================== */
+.container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--c-border);
+  transition: border-color var(--t), background var(--t);
+}
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  gap: 1.5rem;
+}
+.nav__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-shrink: 0;
+}
+.nav__logo-mark { width: 30px; height: 30px; flex-shrink: 0; }
+.nav__logo-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--c-text);
+}
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  flex: 1;
+  justify-content: center;
+}
+.nav__link {
+  padding: 0.4375rem 0.875rem;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--c-text-muted);
+  border-radius: var(--r-sm);
+  transition: color var(--t), background var(--t);
+  white-space: nowrap;
+}
+.nav__link:hover { color: var(--c-text); background: var(--c-bg-subtle); }
+.nav__actions { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border-radius: var(--r-sm);
+  transition: all var(--t);
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+.btn--primary {
+  background: var(--c-navy-800);
+  color: #ffffff;
+  box-shadow: 0 1px 2px rgba(15,23,42,0.15), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.btn--primary:hover { background: var(--c-navy-900); }
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0.5rem;
+  border-radius: var(--r-sm);
+  transition: background var(--t);
+}
+.nav__hamburger:hover { background: var(--c-bg-subtle); }
+.nav__hamburger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--c-text);
+  border-radius: 2px;
+  transition: transform var(--t), opacity var(--t);
+}
+.nav__mobile {
+  display: none;
+  flex-direction: column;
+  padding: 1rem 1.5rem 1.5rem;
+  border-top: 1px solid var(--c-border);
+  gap: 0.125rem;
+}
+.nav__mobile.is-open { display: flex; }
+.nav__mobile .nav__link { padding: 0.75rem 1rem; font-size: var(--text-base); }
+.nav__mobile .btn { margin-top: 0.875rem; justify-content: center; }
+
+/* =====================================================
+   PAGE HEADER
+   ===================================================== */
+.page-header {
+  padding: 7rem 0 3.5rem;
+  background: var(--c-bg-subtle);
+  border-bottom: 1px solid var(--c-border);
+}
+.page-header__breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--text-xs);
+  color: var(--c-text-subtle);
+  margin-bottom: 1.25rem;
+  font-weight: 500;
+}
+.page-header__breadcrumb a {
+  color: var(--c-text-subtle);
+  transition: color var(--t);
+}
+.page-header__breadcrumb a:hover { color: var(--c-text-muted); }
+.page-header__breadcrumb-sep { color: var(--c-border); }
+.page-header__title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--c-text);
+  margin-bottom: 0.75rem;
+}
+.page-header__meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.page-header__meta-item {
+  font-size: var(--text-sm);
+  color: var(--c-text-muted);
+}
+.page-header__meta-item strong {
+  font-weight: 600;
+  color: var(--c-text);
+}
+.page-header__meta-sep {
+  width: 1px;
+  height: 14px;
+  background: var(--c-border);
+  flex-shrink: 0;
+}
+
+/* =====================================================
+   LEGAL CONTENT
+   ===================================================== */
+.legal-body {
+  padding: 4rem 0 6rem;
+}
+.legal-content {
+  max-width: 760px;
+}
+
+/* Intro card */
+.agb-intro {
+  padding: 1.375rem 1.75rem;
+  background: var(--c-bg-subtle);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r);
+  margin-bottom: 3rem;
+  font-size: var(--text-sm);
+  color: var(--c-text-muted);
+  line-height: 1.7;
+}
+
+/* Section structure */
+.agb-section {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--c-border);
+}
+.agb-section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.agb-section__num {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  margin-bottom: 0.4375rem;
+}
+.agb-section__title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  color: var(--c-text);
+  margin-bottom: 1rem;
+}
+.agb-p {
+  font-size: var(--text-base);
+  color: var(--c-text-muted);
+  line-height: 1.8;
+  margin-bottom: 0.875rem;
+}
+.agb-p:last-child { margin-bottom: 0; }
+
+.agb-list {
+  margin: 0.5rem 0 0.875rem;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+.agb-list li {
+  display: flex;
+  gap: 0.625rem;
+  font-size: var(--text-base);
+  color: var(--c-text-muted);
+  line-height: 1.7;
+}
+.agb-list li::before {
+  content: '—';
+  color: var(--c-text-subtle);
+  flex-shrink: 0;
+  font-weight: 300;
+  margin-top: 0.025em;
+}
+.agb-list:last-child { margin-bottom: 0; }
+
+/* Numbered sub-list (for sections like §10 with lettered clauses) */
+.agb-sublist {
+  margin: 0.5rem 0 0.875rem;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  counter-reset: agb-sub;
+}
+.agb-sublist li {
+  display: flex;
+  gap: 0.625rem;
+  font-size: var(--text-base);
+  color: var(--c-text-muted);
+  line-height: 1.7;
+  counter-increment: agb-sub;
+}
+.agb-sublist li::before {
+  content: counter(agb-sub) '.';
+  color: var(--c-text-subtle);
+  flex-shrink: 0;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  min-width: 1.125rem;
+}
+.agb-sublist:last-child { margin-bottom: 0; }
+
+.legal-link {
+  color: var(--c-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color var(--t);
+}
+.legal-link:hover { color: var(--c-navy-700); }
+
+/* Contact block at bottom */
+.agb-contact {
+  margin-top: 3rem;
+  padding: 1.75rem 2rem;
+  background: var(--c-bg-subtle);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r);
+}
+.agb-contact__title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--c-text);
+  margin-bottom: 0.75rem;
+}
+.agb-contact__row {
+  display: flex;
+  gap: 0.5rem;
+  font-size: var(--text-sm);
+  color: var(--c-text-muted);
+  line-height: 1.65;
+  margin-bottom: 0.375rem;
+  align-items: baseline;
+}
+.agb-contact__row:last-child { margin-bottom: 0; }
+.agb-contact__label {
+  font-weight: 500;
+  color: var(--c-text-subtle);
+  flex-shrink: 0;
+  min-width: 6rem;
+}
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+.footer {
+  background: var(--c-navy-950);
+  padding: 4.5rem 0 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.75fr 1fr 1fr 1.375fr;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+}
+.footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 0.875rem;
+}
+.footer__logo-mark { width: 28px; height: 28px; }
+.footer__logo-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+.footer__tagline {
+  font-size: var(--text-sm);
+  color: #3D5270;
+  line-height: 1.65;
+  max-width: 270px;
+}
+.footer__col-head {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #334155;
+  margin-bottom: 1.25rem;
+}
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.footer__link {
+  font-size: var(--text-sm);
+  color: #3D5270;
+  transition: color var(--t);
+  line-height: 1.45;
+}
+.footer__link:hover { color: #64748B; }
+.footer__contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  margin-bottom: 0.75rem;
+}
+.footer__contact-row svg {
+  width: 15px; height: 15px;
+  color: #334155;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.footer__contact-row span,
+.footer__contact-row a {
+  font-size: var(--text-sm);
+  color: #3D5270;
+  line-height: 1.45;
+  transition: color var(--t);
+}
+.footer__contact-row a:hover { color: #64748B; }
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.footer__copy { font-size: var(--text-xs); color: #1E293B; }
+.footer__legal {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.footer__legal-link {
+  font-size: var(--text-xs);
+  color: #1E293B;
+  transition: color var(--t);
+}
+.footer__legal-link:hover { color: #334155; }
+.footer__legal-link.is-current { color: #334155; }
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+@media (max-width: 1024px) {
+  .footer__grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+}
+@media (max-width: 768px) {
+  .nav__links, .nav__actions { display: none; }
+  .nav__hamburger { display: flex; }
+  .footer__grid { grid-template-columns: 1fr; gap: 2rem; }
+  .footer__tagline { max-width: 100%; }
+  .page-header__meta { gap: 0.875rem; }
+  .page-header__meta-sep { display: none; }
+}
+@media (max-width: 480px) {
+  .page-header { padding: 6rem 0 2.5rem; }
+  .agb-contact__row { flex-direction: column; gap: 0.125rem; }
+  .agb-contact__label { min-width: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+  </style>
+</head>
+
+<body>
+  <a href="#main" class="skip-link">Zum Hauptinhalt springen</a>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <header>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <div class="container">
+        <div class="nav__inner">
+
+          <a href="index.html" class="nav__logo" aria-label="Nexus Bit — Startseite">
+            <svg class="nav__logo-mark" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+              <rect width="30" height="30" rx="7" fill="#0F2549"/>
+              <circle cx="15" cy="15" r="2.5" fill="#60A5FA"/>
+              <circle cx="8"  cy="9"  r="1.75" fill="#60A5FA" opacity="0.55"/>
+              <circle cx="22" cy="9"  r="1.75" fill="#60A5FA" opacity="0.55"/>
+              <circle cx="8"  cy="21" r="1.75" fill="#60A5FA" opacity="0.55"/>
+              <circle cx="22" cy="21" r="1.75" fill="#60A5FA" opacity="0.55"/>
+              <line x1="15" y1="15" x2="8"  y2="9"  stroke="#60A5FA" stroke-width="1" opacity="0.4"/>
+              <line x1="15" y1="15" x2="22" y2="9"  stroke="#60A5FA" stroke-width="1" opacity="0.4"/>
+              <line x1="15" y1="15" x2="8"  y2="21" stroke="#60A5FA" stroke-width="1" opacity="0.4"/>
+              <line x1="15" y1="15" x2="22" y2="21" stroke="#60A5FA" stroke-width="1" opacity="0.4"/>
+            </svg>
+            <span class="nav__logo-name">Nexus Bit</span>
+          </a>
+
+          <ul class="nav__links" role="list">
+            <li><a href="index.html#services"  class="nav__link">Services</a></li>
+            <li><a href="index.html#approach"  class="nav__link">Approach</a></li>
+            <li><a href="index.html#about"     class="nav__link">About</a></li>
+            <li><a href="index.html#contact"   class="nav__link">Contact</a></li>
+          </ul>
+
+          <div class="nav__actions">
+            <a href="index.html#contact" class="btn btn--primary">Get in touch</a>
+          </div>
+
+          <button
+            class="nav__hamburger"
+            id="hamburger"
+            aria-label="Menü öffnen"
+            aria-expanded="false"
+            aria-controls="mobile-nav"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+
+        <nav class="nav__mobile" id="mobile-nav" aria-hidden="true" aria-label="Mobile Navigation">
+          <a href="index.html#services"  class="nav__link">Services</a>
+          <a href="index.html#approach"  class="nav__link">Approach</a>
+          <a href="index.html#about"     class="nav__link">About</a>
+          <a href="index.html#contact"   class="nav__link">Contact</a>
+          <a href="index.html#contact"   class="btn btn--primary">Get in touch</a>
+        </nav>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================================================
+         PAGE HEADER
+    ============================================================ -->
+    <div class="page-header">
+      <div class="container">
+        <nav class="page-header__breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Nexus Bit</a>
+          <span class="page-header__breadcrumb-sep" aria-hidden="true">/</span>
+          <span aria-current="page">AGB</span>
+        </nav>
+        <h1 class="page-header__title">Allgemeine Geschäftsbedingungen</h1>
+        <div class="page-header__meta">
+          <span class="page-header__meta-item">
+            <strong>Nexus Bit UG (haftungsbeschränkt)</strong>
+          </span>
+          <span class="page-header__meta-sep" aria-hidden="true"></span>
+          <span class="page-header__meta-item">Mühlenstraße 8a, 14167 Berlin</span>
+          <span class="page-header__meta-sep" aria-hidden="true"></span>
+          <span class="page-header__meta-item">HRB 278655</span>
+          <span class="page-header__meta-sep" aria-hidden="true"></span>
+          <span class="page-header__meta-item">Stand: 25.09.2025</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         AGB CONTENT
+    ============================================================ -->
+    <div class="legal-body">
+      <div class="container">
+        <div class="legal-content">
+
+          <!-- §1 Geltungsbereich -->
+          <section class="agb-section" aria-labelledby="agb-1">
+            <div class="agb-section__num" aria-hidden="true">§ 1</div>
+            <h2 class="agb-section__title" id="agb-1">Geltungsbereich</h2>
+            <p class="agb-p">
+              Diese AGB gelten für sämtliche Verträge zwischen der Nexus Bit UG (haftungsbeschränkt),
+              Berlin („Auftragnehmer"), und ihren Geschäftskunden („Auftraggeber") über
+              IT-Dienstleistungen, Softwareentwicklung, Beratung, Cloud-Architektur sowie
+              Service &amp; Support. Abweichende Bedingungen des Auftraggebers werden nicht
+              anerkannt, es sei denn, ihrer Geltung wird ausdrücklich schriftlich zugestimmt.
+              Die Leistungen richten sich ausschließlich an Unternehmer (B2B).
+            </p>
+          </section>
+
+          <!-- §2 Vertragsgegenstand -->
+          <section class="agb-section" aria-labelledby="agb-2">
+            <div class="agb-section__num" aria-hidden="true">§ 2</div>
+            <h2 class="agb-section__title" id="agb-2">Vertragsgegenstand</h2>
+            <p class="agb-p">
+              Art und Umfang der Leistungen ergeben sich aus den jeweiligen Vertragsdokumenten
+              (z.&nbsp;B. Angebot, Leistungsbeschreibung, Auftragsbestätigung, SLA).
+              Leistungen können u.&nbsp;a. umfassen:
+            </p>
+            <ul class="agb-list" role="list">
+              <li>Entwicklung von Software, Schnittstellen (REST-APIs), Middleware, Integrationen</li>
+              <li>Architektur &amp; Implementierung in Cloud-Umgebungen (Azure, AWS, Microsoft&nbsp;365/Power&nbsp;Platform)</li>
+              <li>Betrieb, Wartung und Support gemäß gesonderten Servicevereinbarungen</li>
+            </ul>
+          </section>
+
+          <!-- §3 Mitwirkungspflichten -->
+          <section class="agb-section" aria-labelledby="agb-3">
+            <div class="agb-section__num" aria-hidden="true">§ 3</div>
+            <h2 class="agb-section__title" id="agb-3">Mitwirkungspflichten des Auftraggebers</h2>
+            <p class="agb-p">
+              Der Auftraggeber stellt sämtliche zur Leistungserbringung erforderlichen
+              Informationen, Zugänge, Testdaten und Systemressourcen rechtzeitig bereit und
+              informiert über relevante Infrastrukturänderungen. Er sorgt für angemessene
+              Datensicherungen. Verzögerungen/Mehrkosten aufgrund fehlender Mitwirkung gehen
+              zu Lasten des Auftraggebers.
+            </p>
+          </section>
+
+          <!-- §4 Vergütung -->
+          <section class="agb-section" aria-labelledby="agb-4">
+            <div class="agb-section__num" aria-hidden="true">§ 4</div>
+            <h2 class="agb-section__title" id="agb-4">Vergütung, Abrechnung, Zahlungen</h2>
+            <ul class="agb-list" role="list">
+              <li>
+                Abrechnung nach Aufwand zu vereinbarten Stunden-/Tagessätzen oder pauschal
+                gemäß Angebot, zzgl. gesetzlicher Umsatzsteuer.
+              </li>
+              <li>
+                Rechnungen sind innerhalb von 14 Tagen ohne Abzug fällig. Bei Zahlungsverzug
+                ist der Auftragnehmer zur Leistungsverweigerung berechtigt.
+              </li>
+              <li>
+                Teilleistungen können in Rechnung gestellt werden; Auslagen (z.&nbsp;B. Reisen)
+                werden nach Nachweis abgerechnet.
+              </li>
+            </ul>
+          </section>
+
+          <!-- §5 Change Requests -->
+          <section class="agb-section" aria-labelledby="agb-5">
+            <div class="agb-section__num" aria-hidden="true">§ 5</div>
+            <h2 class="agb-section__title" id="agb-5">Änderungen / Change Requests</h2>
+            <p class="agb-p">
+              Änderungswünsche sind vor Umsetzung abzustimmen. Der Auftragnehmer teilt
+              Auswirkungen auf Aufwand, Termine und Vergütung mit; Prüfaufwände können
+              berechnet werden. Vereinbarte Fristen verlängern sich um prüfungs-/änderungsbedingte
+              Zeiten.
+            </p>
+          </section>
+
+          <!-- §6 Rechte an Arbeitsergebnissen -->
+          <section class="agb-section" aria-labelledby="agb-6">
+            <div class="agb-section__num" aria-hidden="true">§ 6</div>
+            <h2 class="agb-section__title" id="agb-6">Rechte an Arbeitsergebnissen &amp; Software</h2>
+            <ul class="agb-list" role="list">
+              <li>
+                An individuell erstellter Software erhält der Auftraggeber nach vollständiger
+                Zahlung ein einfaches, zeitlich unbefristetes Nutzungsrecht im vertraglich
+                vorgesehenen Umfang.
+              </li>
+              <li>
+                Die Überlassung von Quellcode, Build-Pipelines oder Entwicklerartefakten
+                erfolgt nur, wenn dies ausdrücklich vereinbart wurde.
+              </li>
+              <li>
+                Für Standard-/Open-Source-Komponenten gelten die jeweiligen Lizenzbedingungen;
+                diese können Bestandteil der Lösung sein.
+              </li>
+              <li>
+                Vorbestehende Rechte/Methoden/Tools des Auftragnehmers verbleiben beim
+                Auftragnehmer.
+              </li>
+            </ul>
+          </section>
+
+          <!-- §7 Vertraulichkeit -->
+          <section class="agb-section" aria-labelledby="agb-7">
+            <div class="agb-section__num" aria-hidden="true">§ 7</div>
+            <h2 class="agb-section__title" id="agb-7">Vertraulichkeit</h2>
+            <p class="agb-p">
+              Beide Parteien behandeln nicht öffentliche Informationen vertraulich und
+              verwenden sie ausschließlich zur Vertragsdurchführung. Diese Pflicht besteht
+              3 Jahre über das Vertragsende hinaus. Gesetzliche Offenlegungspflichten
+              bleiben unberührt.
+            </p>
+          </section>
+
+          <!-- §8 Datenschutz/AVV -->
+          <section class="agb-section" aria-labelledby="agb-8">
+            <div class="agb-section__num" aria-hidden="true">§ 8</div>
+            <h2 class="agb-section__title" id="agb-8">Datenschutz / AVV</h2>
+            <p class="agb-p">
+              Es gelten die anwendbaren Datenschutzgesetze (insb. DSGVO). Soweit der
+              Auftragnehmer personenbezogene Daten im Auftrag verarbeitet, schließen die
+              Parteien einen Auftragsverarbeitungsvertrag (AVV).
+            </p>
+          </section>
+
+          <!-- §9 Support, Managed Services & SLA -->
+          <section class="agb-section" aria-labelledby="agb-9">
+            <div class="agb-section__num" aria-hidden="true">§ 9</div>
+            <h2 class="agb-section__title" id="agb-9">Support, Managed Services &amp; SLA</h2>
+            <p class="agb-p">
+              Für Support-/Betriebsleistungen gelten die in einem separaten SLA vereinbarten
+              Reaktions-/Lösungszeiten, Servicezeiten und Kontingente. Ohne SLA erfolgt
+              Unterstützung nach Verfügbarkeit („Best Effort").
+            </p>
+          </section>
+
+          <!-- §10 Haftung -->
+          <section class="agb-section" aria-labelledby="agb-10">
+            <div class="agb-section__num" aria-hidden="true">§ 10</div>
+            <h2 class="agb-section__title" id="agb-10">Haftung</h2>
+            <ul class="agb-list" role="list">
+              <li>
+                Unbeschränkte Haftung bei Vorsatz, grober Fahrlässigkeit sowie für Schäden
+                an Leben, Körper oder Gesundheit.
+              </li>
+              <li>
+                Bei einfacher Fahrlässigkeit Haftung nur bei Verletzung wesentlicher
+                Vertragspflichten (Kardinalpflichten), begrenzt auf den vertragstypisch
+                vorhersehbaren Schaden.
+              </li>
+              <li>
+                Für Datenverluste wird nur gehaftet, sofern der Auftraggeber angemessene
+                Backups durchgeführt hat (Ersatz der Wiederherstellungskosten im Rahmen
+                des Vorstehenden).
+              </li>
+            </ul>
+          </section>
+
+          <!-- §11 Vertragsdauer und Kündigung -->
+          <section class="agb-section" aria-labelledby="agb-11">
+            <div class="agb-section__num" aria-hidden="true">§ 11</div>
+            <h2 class="agb-section__title" id="agb-11">Vertragsdauer und Kündigung</h2>
+            <p class="agb-p">
+              Sofern nicht anders vereinbart, laufen Verträge auf unbestimmte Zeit und können
+              mit einer Frist von 3 Monaten zum Quartalsende ordentlich gekündigt werden.
+              Das Recht zur fristlosen Kündigung aus wichtigem Grund bleibt unberührt.
+              Bereits begonnene, beauftragte Leistungen werden vertragsgemäß abgeschlossen
+              oder nach Aufwand abgerechnet.
+            </p>
+          </section>
+
+          <!-- §12 Referenzen -->
+          <section class="agb-section" aria-labelledby="agb-12">
+            <div class="agb-section__num" aria-hidden="true">§ 12</div>
+            <h2 class="agb-section__title" id="agb-12">Referenzen</h2>
+            <p class="agb-p">
+              Der Auftragnehmer darf den Auftraggeber unter Nennung von Name/Logo als
+              Referenz aufführen, sofern dem nicht berechtigte Interessen entgegenstehen.
+              Ein Widerspruch ist jederzeit möglich.
+            </p>
+          </section>
+
+          <!-- §13 Höhere Gewalt -->
+          <section class="agb-section" aria-labelledby="agb-13">
+            <div class="agb-section__num" aria-hidden="true">§ 13</div>
+            <h2 class="agb-section__title" id="agb-13">Höhere Gewalt</h2>
+            <p class="agb-p">
+              Ereignisse außerhalb der Zumutbarkeitssphäre (z.&nbsp;B. Streik, Ausfall von
+              Netzinfrastrukturen/Cloud-Regionen, Naturereignisse, behördliche Anordnungen)
+              suspendieren die Leistungspflichten für die Dauer der Störung; Fristen
+              verschieben sich entsprechend.
+            </p>
+          </section>
+
+          <!-- §14 Rechtswahl, Gerichtsstand -->
+          <section class="agb-section" aria-labelledby="agb-14">
+            <div class="agb-section__num" aria-hidden="true">§ 14</div>
+            <h2 class="agb-section__title" id="agb-14">Rechtswahl, Gerichtsstand</h2>
+            <p class="agb-p">
+              Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts (CISG). Soweit
+              rechtlich zulässig, ist Gerichtsstand Berlin.
+            </p>
+          </section>
+
+          <!-- §15 Schlussbestimmungen -->
+          <section class="agb-section" aria-labelledby="agb-15">
+            <div class="agb-section__num" aria-hidden="true">§ 15</div>
+            <h2 class="agb-section__title" id="agb-15">Schlussbestimmungen</h2>
+            <ul class="agb-list" role="list">
+              <li>Individuelle Vereinbarungen haben Vorrang vor diesen AGB.</li>
+              <li>
+                Sollten einzelne Bestimmungen unwirksam sein, bleibt die Wirksamkeit der
+                übrigen unberührt.
+              </li>
+              <li>
+                Änderungen/Ergänzungen bedürfen der Textform (E-Mail ausreichend, sofern
+                nicht anders vereinbart).
+              </li>
+            </ul>
+          </section>
+
+          <!-- Contact block -->
+          <div class="agb-contact" role="complementary" aria-label="Kontaktangaben">
+            <div class="agb-contact__title">Kontakt</div>
+            <div class="agb-contact__row">
+              <span class="agb-contact__label">Unternehmen</span>
+              <span>Nexus Bit UG (haftungsbeschränkt)</span>
+            </div>
+            <div class="agb-contact__row">
+              <span class="agb-contact__label">Anschrift</span>
+              <span>Mühlenstraße 8a, 14167 Berlin</span>
+            </div>
+            <div class="agb-contact__row">
+              <span class="agb-contact__label">E-Mail</span>
+              <a href="mailto:info@nexus-bit.de" class="legal-link">info@nexus-bit.de</a>
+            </div>
+            <div class="agb-contact__row">
+              <span class="agb-contact__label">Telefon</span>
+              <a href="tel:+4915562901223" class="legal-link">+49 155 6290 1223</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+
+        <div>
+          <div class="footer__logo">
+            <svg class="footer__logo-mark" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+              <rect width="28" height="28" rx="6.5" fill="#0F2549"/>
+              <circle cx="14" cy="14" r="2.25" fill="#60A5FA"/>
+              <circle cx="7.5"  cy="8.5"  r="1.5" fill="#60A5FA" opacity="0.5"/>
+              <circle cx="20.5" cy="8.5"  r="1.5" fill="#60A5FA" opacity="0.5"/>
+              <circle cx="7.5"  cy="19.5" r="1.5" fill="#60A5FA" opacity="0.5"/>
+              <circle cx="20.5" cy="19.5" r="1.5" fill="#60A5FA" opacity="0.5"/>
+              <line x1="14" y1="14" x2="7.5"  y2="8.5"  stroke="#60A5FA" stroke-width="0.9" opacity="0.35"/>
+              <line x1="14" y1="14" x2="20.5" y2="8.5"  stroke="#60A5FA" stroke-width="0.9" opacity="0.35"/>
+              <line x1="14" y1="14" x2="7.5"  y2="19.5" stroke="#60A5FA" stroke-width="0.9" opacity="0.35"/>
+              <line x1="14" y1="14" x2="20.5" y2="19.5" stroke="#60A5FA" stroke-width="0.9" opacity="0.35"/>
+            </svg>
+            <span class="footer__logo-name">Nexus Bit</span>
+          </div>
+          <p class="footer__tagline">
+            Architecture, AI &amp; Reliable Systems. Helping organizations build systems
+            that remain understandable, governable, and adaptable.
+          </p>
+        </div>
+
+        <div>
+          <div class="footer__col-head">Services</div>
+          <ul class="footer__links" role="list">
+            <li><a href="index.html#services" class="footer__link">AI Governance &amp; Reliability</a></li>
+            <li><a href="index.html#services" class="footer__link">Cloud &amp; Platform Architecture</a></li>
+            <li><a href="index.html#services" class="footer__link">Dynamics 365 &amp; Power Platform</a></li>
+            <li><a href="index.html#services" class="footer__link">Operations &amp; Managed Services</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer__col-head">Company</div>
+          <ul class="footer__links" role="list">
+            <li><a href="index.html#approach" class="footer__link">Our Approach</a></li>
+            <li><a href="index.html#about"    class="footer__link">About</a></li>
+            <li><a href="index.html#contact"  class="footer__link">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer__col-head">Kontakt</div>
+          <div class="footer__contact-row">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="1" y="3" width="14" height="10" rx="1.5"/>
+              <polyline points="1,4 8,9 15,4"/>
+            </svg>
+            <a href="mailto:info@nexus-bit.de" class="footer__link">info@nexus-bit.de</a>
+          </div>
+          <div class="footer__contact-row">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 1.5a5.5 5.5 0 0 1 5.5 5.5C13.5 10.5 8 14.5 8 14.5S2.5 10.5 2.5 7A5.5 5.5 0 0 1 8 1.5z"/>
+              <circle cx="8" cy="7" r="2"/>
+            </svg>
+            <span>Berlin, Deutschland</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 Nexus Bit UG (haftungsbeschränkt) i.G. Alle Rechte vorbehalten.</p>
+        <nav class="footer__legal" aria-label="Rechtliche Links">
+          <a href="agb.html"          class="footer__legal-link is-current" aria-current="page">AGB</a>
+          <a href="impressum.html"    class="footer__legal-link">Impressum</a>
+          <a href="datenschutz.html"  class="footer__legal-link">Datenschutzerklärung</a>
+        </nav>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+  let menuOpen = false;
+
+  function setMenu(open) {
+    menuOpen = open;
+    hamburger.setAttribute('aria-expanded', open);
+    mobileNav.setAttribute('aria-hidden', !open);
+    mobileNav.classList.toggle('is-open', open);
+    const [s1, s2, s3] = hamburger.querySelectorAll('span');
+    if (open) {
+      s1.style.transform = 'translateY(7px) rotate(45deg)';
+      s2.style.opacity   = '0';
+      s3.style.transform = 'translateY(-7px) rotate(-45deg)';
+    } else {
+      s1.style.transform = s3.style.transform = '';
+      s2.style.opacity = '';
+    }
+  }
+
+  hamburger.addEventListener('click', () => setMenu(!menuOpen));
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  </script>
+</body>
+</html>
