@@ -49,7 +49,7 @@ Auf der öffentlichen Website muss der Begriff „Vibe Coding“ nicht verwendet
 
 ## 4. Leistungen
 
-Die Website führt fünf Leistungsbereiche. Überschrift, Anzahl und Footer müssen damit übereinstimmen.
+Die Website führt fünf Leistungsbereiche. Überschrift, Anzahl und Footer müssen damit übereinstimmen. Auf der Startseite wird Software & Integration Engineering zuerst und visuell hervorgehoben, weil dies der konkreteste Einstieg für Interessenten ist.
 
 ### 4.1 AI Governance & Reliability
 
@@ -112,16 +112,19 @@ Allgemeine Middleware- und Backend-Arbeit wird nicht künstlich Power Platform z
 Verbindliche Bereiche:
 
 1. Header und Navigation
-2. Hero
-3. Übersicht aller fünf Leistungen
+2. Hero mit unmittelbar sichtbarer Software-Engineering-Positionierung
+3. Übersicht aller fünf Leistungen, beginnend mit Software & Integration Engineering
 4. Vorgehensweise
 5. Differenzierung und Unternehmensdarstellung
-6. Kontaktaufruf
-7. Footer
+6. anonymisierte, belastbare Beispiele bisheriger Engineering-Arbeit
+7. konkreter Kontaktaufruf für Software-, Integrations- und Architekturprojekte
+8. Footer
 
 Der Hero verbindet Architektur, KI und zuverlässige Systeme mit der Fähigkeit, Softwaresysteme zu **design, build, and operate**.
 
 Die Differenzierung beschreibt architekturgeführte Softwareentwicklung. Sie darf nicht behaupten, Nexus Bit sei nicht da, um Features zu entwickeln.
+
+Projektbeispiele dürfen Kundennamen und vertrauliche Details nicht offenlegen. Sie sollen konkrete Problemklassen, eingesetzte technische Ansätze und belastbare Größenordnungen oder Ergebnisse nennen.
 
 ### Rechtliche Seiten
 
@@ -129,7 +132,7 @@ Die Differenzierung beschreibt architekturgeführte Softwareentwicklung. Sie dar
 - `datenschutz.html`
 - `agb.html`
 
-Rechtliche Inhalte bleiben deutsch. Alle Seiten müssen erreichbar sein; Links dürfen nicht ins Leere führen.
+Rechtliche Inhalte bleiben deutsch. Alle Seiten müssen erreichbar sein; Links dürfen nicht ins Leere führen. Da die Gesellschaft im Handelsregister eingetragen ist, dürfen „in Gründung“ und „i.G.“ weder im Impressum noch in Footern oder Metadaten erscheinen.
 
 ### Footer
 
